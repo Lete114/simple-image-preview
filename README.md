@@ -13,7 +13,7 @@ npm install simple-image-preview
 Or
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/simple-image-preview/dist/simple-image-preview.umd.cjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-image-preview/dist/simple-image-preview.umd.js"></script>
 ```
 
 ## Usage

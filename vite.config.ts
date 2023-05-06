@@ -7,7 +7,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
       name: 'simpleImagePreview',
-      fileName: 'simple-image-preview'
+      fileName: (format) => `simple-image-preview.${format}.js`
     }
   },
   plugins: [VitePluginStyleInject()]

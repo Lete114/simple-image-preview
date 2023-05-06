@@ -10,10 +10,7 @@ function getScrollbarWidth() {
   return window.innerWidth - html.clientWidth + 'px'
 }
 
-export default function simpleImagePreview(
-  s?: string | NodeList,
-  options?: { zIndex: string }
-) {
+export default function simpleImagePreview(s?: string | NodeList, options?: { zIndex: string }) {
   if (options?.zIndex) {
     mask.style.setProperty('--sip-z-index', options.zIndex)
   }
@@ -24,7 +21,7 @@ export default function simpleImagePreview(
     target.addEventListener('click', function () {
       const src = target.getAttribute('src')
       if (!src) return
-      
+
       html.style.setProperty('--sip-hide-scrollbar', getScrollbarWidth())
       body.classList.add('sip-hide-scrollbar')
       mask.style.setProperty('visibility', 'visible')
@@ -33,7 +30,7 @@ export default function simpleImagePreview(
       mask.appendChild(img)
       img.src = src
       const bounding = target.getBoundingClientRect()
-      
+
       // Set clone image initial position
       const style = `top:${bounding.top}px;left:${bounding.left}px;width:${bounding.width}px;height:${bounding.height}px`
       img.setAttribute('style', style)
