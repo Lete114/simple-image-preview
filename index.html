@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Image Preview</title>
+
+    <style>
+      .columns {
+        column-count: 5;
+        column-gap: 10px;
+        margin: 10px;
+      }
+
+      img {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="columns"></div>
+
+    <script type="module">
+      const reg = /^(192\.168\.|127\.0\.|localhost)/
+      if (reg.test(location.hostname)) {
+        import('/src/main.ts').then((module) => {
+          let hash = location.hash.slice(1) || 'img'
+          if (hash === 'all') hash = document.querySelectorAll('img')
+          module.default(hash, { zIndex: 3 })
+        })
+      } else {
+        const s = document.createElement('script')
+        s.src = 'https://cdn.jsdelivr.net/npm/simple-image-preview/dist/simple-image-preview.umd.cjs'
+        document.head.appendChild(s)
+        s.onload = () => {
+          simpleImagePreview()
+        }
+      }
+    </script>
+    <script>
+      const columnsContainer = document.querySelector('.columns')
+      const cdf = document.createDocumentFragment()
+      const testImages = JSON.parse(sessionStorage.getItem('test-imgs') || '[]')
+
+      const imgs = new Array(30).fill(0).map((item, i) => {
+        if (testImages.length) return testImages[i]
+        const imgWidth = Math.floor(Math.random() * 500) + 200
+        const imgHeight = Math.floor(Math.random() * 500) + 200
+        const imgUrl = `https://picsum.photos/${imgWidth}/${imgHeight}`
+        return fetch(imgUrl).then((r) => {
+          testImages.push(r.url)
+          return r.url
+        })
+      })
+      Promise.allSettled(imgs).then((result) => {
+        sessionStorage.setItem('test-imgs', JSON.stringify(testImages))
+        for (const r of result) {
+          if (r.status === 'fulfilled') {
+            const img = document.createElement('img')
+            img.src = r.value
+            cdf.appendChild(img)
+          }
+        }
+        columnsContainer.appendChild(cdf)
+      })
+    </script>
+  </body>
+</html>

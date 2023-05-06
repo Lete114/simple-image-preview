@@ -1,0 +1,34 @@
+{
+  "name": "simple-image-preview",
+  "description": "A lightweight image preview library",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "exports": {
+    "types":"./simple-image-preview.d.ts",
+    "import": "./dist/simple-image-preview.js",
+    "default": "./dist/simple-image-preview.umd.cjs"
+  },
+  "author": "Lete114",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/Lete114/simple-image-preview/issues"
+  },
+  "homepage": "https://github.com/Lete114/simple-image-preview#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lete114/simple-image-preview.git"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  }
+}
