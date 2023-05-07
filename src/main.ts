@@ -27,19 +27,21 @@ export default function simpleImagePreview(s?: string | NodeList, options?: { zI
       mask.style.setProperty('visibility', 'visible')
 
       const img = document.createElement('img')
-      mask.appendChild(img)
       img.src = src
       const bounding = target.getBoundingClientRect()
 
       // Set clone image initial position
-      const style = `top:${bounding.top}px;left:${bounding.left}px;width:${bounding.width}px;height:${bounding.height}px`
+      // eslint-disable-next-line max-len
+      const style = `position:absolute;top:${bounding.top}px;left:${bounding.left}px;width:${bounding.width}px;height:${bounding.height}px`
       img.setAttribute('style', style)
       target.classList.add('sip-hide')
 
+      mask.appendChild(img)
+
       // Use setTimeout to wait for the over-animation to complete
       setTimeout(() => {
-        img.removeAttribute('style')
         img.classList.add('sip-img')
+        img.removeAttribute('style')
       })
 
       // Close the preview image
