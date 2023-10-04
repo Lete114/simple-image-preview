@@ -38,11 +38,9 @@ export default function simpleImagePreview(s?: string | NodeList, options?: { zI
 
       mask.appendChild(img)
 
-      // Use setTimeout to wait for the over-animation to complete
-      setTimeout(() => {
-        img.classList.add('sip-img')
-        img.removeAttribute('style')
-      })
+      img.offsetTop // force reflow
+      img.classList.add('sip-img')
+      img.removeAttribute('style')
 
       // Close the preview image
       mask.addEventListener('click', function () {
